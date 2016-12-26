@@ -6,7 +6,7 @@ import urllib.request
 import feedparser
 
 class Redditscraping:
-    'Class built for ripping imgur images from a reddit feed (rss)'
+    """ Class built for ripping imgur images from a reddit feed (rss) """
 
     def __init__(self, reddit_rooms, file_location, limit):
         self.reddit_rooms = reddit_rooms
@@ -59,9 +59,9 @@ class Redditscraping:
             for entry in current_feed["entries"]:
                 index += 1
                 imgur_url = self.parse_imgur_links(entry["summary"])
-                file_name = self.file_location + (re.sub(r'[^\w]', '', entry['title']) + ".jpeg")
+                file_name = self.file_location + (re.sub(r'[^\w]', '', self.image_count) + ".jpeg") # self.image_count was entry['title']
                 if imgur_url != '':
                     self.image_count += 1
                     self.download_image(imgur_url, sub, file_name)
                 if index >= entries_len:
-                    print("Downloading Complete")
+                    print("Downloading Complete in subreddit: %s" % sub)
