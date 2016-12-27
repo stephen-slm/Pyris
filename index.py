@@ -22,9 +22,8 @@ CUTE_REDDITS = str(CONFIG.get("settings", "cute_reddits")).replace(" ", "").spli
 
 # accessing the reddit class and gathering the front page sub names
 REDDIT = Reddit()
-CORE_SUBS = REDDIT.gather_frontpage_sub_gathering()
 
-CORE = Redditscraping(CORE_SUBS, (IMAGE_PATH + "/core/"), IMAGE_LIMIT)
+CORE = Redditscraping(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT)
 CORE.gather_images()
 
 #Cute gathering

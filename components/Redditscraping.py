@@ -13,7 +13,7 @@ class Redditscraping:
         self.file_location = file_location
         self.limit = limit
         self.i = 1
-        self.image_count = 0
+        self.image_count = 1
 
         if not os.path.exists(self.file_location):
             os.makedirs(self.file_location)
@@ -59,7 +59,7 @@ class Redditscraping:
             for entry in current_feed["entries"]:
                 index += 1
                 imgur_url = self.parse_imgur_links(entry["summary"])
-                file_name = self.file_location + (re.sub(r'[^\w]', '', self.image_count) + ".jpeg") # self.image_count was entry['title']
+                file_name = self.file_location + "#%s.jpeg" % str(self.image_count) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
                 if imgur_url != '':
                     self.image_count += 1
                     self.download_image(imgur_url, sub, file_name)
