@@ -3,7 +3,15 @@
 
 PyRedditImgurScraping is a Python (3) tool to scrape [Reddit](https://www.reddit.com/) subreddits.
 This tool enables you to pull [Imgur](http://imgur.com/) images that are within the 
-selected reddit subreddits and download them into your selected folder
+selected reddit subreddits and download them into your selected folder.
+
+## How to: 
+
+1. Clone / Download the Github [Repository.](https://github.com/tehstun/Reddit-Imgur-scraping/archive/master.zip) 
+2. Extact the PyRedditImgurScraping into its own folder.
+3. Adjust the "*settings.ini*" file to meet your requirements.
+4. Run the command "*py index.py*" from within the root folder.
+5. Profit.
 
 ## Settings.ini
 
@@ -27,13 +35,13 @@ name: the downloaded image name).
 
 [folder_names](): This will be the folder name of which the images will be pulled into, 
 you then will have to create a duplicate of that name below the folder_names. Giving that value all
-the subreddits you want to scrape. These values should be single space while seperated by a single comma.
+the subreddits you want to scrape. These values should be single space while separated by a single comma.
 Check the below example for a better understanding.
 
 ### *Example*
 ```ini
 [settings]
-images_path = %userprofile%\Pictures
+images_path = C:\Users\tehstun\Pictures
 image_limit = 50
 
 [options]
