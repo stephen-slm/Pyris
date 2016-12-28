@@ -1,7 +1,7 @@
 # PyRedditImgurScraping
 
 
-PyRedditImgurScraping is a Python (3) tool to scrape [Reddit](https://www.reddit.com/) subreddits.
+PyRedditImgurScraping is a Python ([3](https://www.python.org/downloads/)) tool to scrape [Reddit](https://www.reddit.com/) subreddits.
 This tool enables you to pull [Imgur](http://imgur.com/) images that are within the 
 selected reddit subreddits and download them into your selected folder.
 

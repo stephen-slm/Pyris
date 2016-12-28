@@ -1,7 +1,7 @@
 # pylint: disable=W1401, C0301
 
 import re
-import feedparser
+from feedparser import parse as feedparser
 
 class Reddit:
     """ A basic reddit class to do some information gathering """
@@ -13,7 +13,7 @@ class Reddit:
     def gather_frontpage(self):
         """ Gather all the front page reddit sub reddits names """
         subreddits = []
-        reddit_rss_feed = feedparser.parse(self.reddit_core_url + ".rss?limit=100")
+        reddit_rss_feed = feedparser(self.reddit_core_url + ".rss?limit=100")
         for entry in reddit_rss_feed["entries"]:
             entry_sub = re.search("(?P<url>https?://www.reddit.com/r/([A-z0-9\-]+))(\?[[^/]+)?", entry["summary"])
             if entry_sub.group(2) not in subreddits:

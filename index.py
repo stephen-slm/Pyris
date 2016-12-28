@@ -6,6 +6,7 @@ from configparser import ConfigParser
 
 #custom imports
 from components.Reddit import Reddit
+from components.RedditClient import RedditClient
 from components.Redditscraping import Redditscraping
 
 #Importing settings
@@ -34,15 +35,14 @@ if not path.exists(IMAGE_PATH):
 # accessing the reddit class and gathering the front page sub names
 if BUILD_CORE:
     REDDIT = Reddit()
-    CORE = Redditscraping(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAME_TYPE)
+    CORE = Redditscraping(RedditClient(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAME_TYPE))
     CORE.gather_images()
 
 #scraping
 for name in FOLDER_NAMES:
     try:
-        selected_folder = str(name)
-        selected_subreddits = str(CONFIG.get("scraping_options", selected_folder)).replace(" ", "").split(",")
-        scraping = Redditscraping(selected_subreddits, (IMAGE_PATH + "/%s/" % name), IMAGE_LIMIT, NAME_TYPE)
+        selected_subreddits = str(CONFIG.get("scraping_options", name)).replace(" ", "").split(",")
+        scraping = Redditscraping(RedditClient(selected_subreddits, (IMAGE_PATH + "/%s/" % name), IMAGE_LIMIT, NAME_TYPE))
         scraping.gather_images()
     except Exception as error:
         if type(error).__name__ == "NoOptionError":
