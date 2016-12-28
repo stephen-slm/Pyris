@@ -1,6 +1,7 @@
 # pylint: disable=C0111, W1401, C0301
 
-#default imports
+#default imports]
+from os import path, makedirs
 from configparser import ConfigParser
 
 #custom imports
@@ -26,6 +27,9 @@ NAME_TYPE = CONFIG.get("options", "name_type")
 #scraping_options
 FOLDER_NAMES = str(CONFIG.get("scraping_options", "folder_names")).replace(" ", "").split(",")
 
+#check if IMAGE_PATH end folder exists (otherwise create it)
+if not path.exists(IMAGE_PATH):
+    makedirs(IMAGE_PATH)
 
 # accessing the reddit class and gathering the front page sub names
 if BUILD_CORE:

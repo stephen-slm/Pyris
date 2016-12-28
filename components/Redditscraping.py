@@ -1,10 +1,13 @@
 # pylint: disable=W1401, C0301
 
-import os
 import re
 import urllib.request
-import feedparser
+from os import path, makedirs
 from random import randint
+import feedparser
+
+ENTRIES_NAME = "entries"
+SUMMARY_NAME = "summary"
 
 class Redditscraping:
     """ Class built for ripping imgur images from a reddit feed (rss) """
@@ -18,8 +21,8 @@ class Redditscraping:
         self.image_count = 1
         self.max_random_numbers = self.limit * len(self.reddit_rooms) * 10
 
-        if not os.path.exists(self.file_location):
-            os.makedirs(self.file_location)
+        if not path.exists(self.file_location):
+            makedirs(self.file_location)
 
     def gather_reddit_rss(self, room):
         """ will a room name and limit, while then gathering the rss food upto that limit """
@@ -56,12 +59,12 @@ class Redditscraping:
 
         for sub in self.reddit_rooms:
             current_feed = self.gather_reddit_rss(sub)
-            entries_len = len(current_feed["entries"])
+            entries_len = len(current_feed[ENTRIES_NAME])
             index = 0
 
-            for entry in current_feed["entries"]:
+            for entry in current_feed[ENTRIES_NAME]:
                 index += 1
-                imgur_url = self.parse_imgur_links(entry["summary"])
+                imgur_url = self.parse_imgur_links(entry[SUMMARY_NAME])
                 random_numbers = []
 
                 if self.name_type == "random":
@@ -71,7 +74,7 @@ class Redditscraping:
                         selected_number = randint(0, self.max_random_numbers)
 
                     random_numbers.append(selected_number)
-                    file_name = self.file_location + "%s.jpeg" % str(selected_number) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
+                    file_name = self.file_location + "%s.jpeg" % str(selected_number)
 
                 if self.name_type == "standard":
                     file_name = self.file_location + "#%s.jpeg" % str(self.image_count) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
