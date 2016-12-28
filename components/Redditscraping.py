@@ -4,16 +4,19 @@ import os
 import re
 import urllib.request
 import feedparser
+from random import randint
 
 class Redditscraping:
     """ Class built for ripping imgur images from a reddit feed (rss) """
 
-    def __init__(self, reddit_rooms, file_location, limit):
+    def __init__(self, reddit_rooms, file_location, limit, name_type):
         self.reddit_rooms = reddit_rooms
         self.file_location = file_location
         self.limit = limit
+        self.name_type = name_type
         self.i = 1
         self.image_count = 1
+        self.max_random_numbers = self.limit * len(self.reddit_rooms) * 10
 
         if not os.path.exists(self.file_location):
             os.makedirs(self.file_location)
@@ -59,7 +62,20 @@ class Redditscraping:
             for entry in current_feed["entries"]:
                 index += 1
                 imgur_url = self.parse_imgur_links(entry["summary"])
-                file_name = self.file_location + "#%s.jpeg" % str(self.image_count) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
+                random_numbers = []
+
+                if self.name_type == "random":
+                    selected_number = randint(0, self.max_random_numbers)
+
+                    while selected_number in random_numbers:
+                        selected_number = randint(0, self.max_random_numbers)
+
+                    random_numbers.append(selected_number)
+                    file_name = self.file_location + "%s.jpeg" % str(selected_number) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
+
+                if self.name_type == "standard":
+                    file_name = self.file_location + "#%s.jpeg" % str(self.image_count) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
+
                 if imgur_url != '':
                     self.image_count += 1
                     self.download_image(imgur_url, sub, file_name)

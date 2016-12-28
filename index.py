@@ -4,10 +4,8 @@
 from configparser import ConfigParser
 
 #custom imports
-from components.Redditscraping import Redditscraping
 from components.Reddit import Reddit
-
-
+from components.Redditscraping import Redditscraping
 
 #Importing settings
 CONFIG = ConfigParser()
@@ -16,16 +14,22 @@ CONFIG = ConfigParser()
 CONFIG.read('./settings.ini')
 
 # read values from a section
+
+#settings
 IMAGE_PATH = CONFIG.get('settings', 'images_path')
 IMAGE_LIMIT = CONFIG.getint('settings', 'image_limit')
 CUTE_REDDITS = str(CONFIG.get("settings", "cute_reddits")).replace(" ", "").split(",")
 
-# accessing the reddit class and gathering the front page sub names
-REDDIT = Reddit()
+#options
+BUILD_CORE = CONFIG.getboolean("options", "build_core")
+NAMES_TYPE = CONFIG.getboolean("options", "names_type")
 
-CORE = Redditscraping(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT)
-CORE.gather_images()
+# accessing the reddit class and gathering the front page sub names
+if BUILD_CORE:
+    REDDIT = Reddit()
+    CORE = Redditscraping(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAMES_TYPE)
+    CORE.gather_images()
 
 #Cute gathering
-CUTE = Redditscraping(CUTE_REDDITS, (IMAGE_PATH + "/cute/"), IMAGE_LIMIT)
+CUTE = Redditscraping(CUTE_REDDITS, (IMAGE_PATH + "/cute/"), IMAGE_LIMIT, NAMES_TYPE)
 CUTE.gather_images()
