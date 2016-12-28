@@ -28,6 +28,11 @@ class Redditscraping:
         if not path.exists(self.file_location):
             makedirs(self.file_location)
 
+    def handle_errors(self, error_code, error, extra):
+        """ handles errors that occure while scraping Reddit """
+        if error_code == 1:
+            print("Failed to download image: %s, error: %s" % (extra, str(error)))
+
     def gather_reddit_rss(self, room):
         """ will a room name and limit, while then gathering the rss food upto that limit """
 
@@ -56,7 +61,7 @@ class Redditscraping:
             urllib.request.urlretrieve(url, name)
             self.i += 1
         except (urllib.request.HTTPError, Exception) as err:
-            print("Failed to download image: %s, error: %s" % (url, str(err)))
+            self.handle_errors(1, err, url)
 
     def gather_images(self):
         """ goes through the provided array of rooms (sub reddits) and begin parsing and downloading any imgur links """
@@ -93,3 +98,5 @@ class Redditscraping:
                     self.download_image(imgur_url, sub, file_name)
                 if index >= entries_len:
                     print("Downloading Complete in subreddit: %s" % sub)
+
+        return True
