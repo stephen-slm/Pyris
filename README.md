@@ -17,23 +17,23 @@ selected reddit subreddits and download them into your selected folder.
 
 ### *Settings*
 
-<span style="color:#3366BB">image_path</span>: The direct path to the location you want to save your images.
+[image_path](https://github.com/tehstun/Reddit-Imgur-scraping): The direct path to the location you want to save your images.
 
-<span style="color:#3366BB">image_limit</span>: The max amount of images to download per subreddit (max 100, default: 50).
+[image_limit](https://github.com/tehstun/Reddit-Imgur-scraping): The max amount of images to download per subreddit (max 100, default: 50).
 
 ### *Options*
 
-<span style="color:#3366BB">build_core</span>: If true, this will tell the tool to scrape the frontpage (reddit) 
+[build_core](https://github.com/tehstun/Reddit-Imgur-scraping): If true, this will tell the tool to scrape the frontpage (reddit) 
 for the current most active subreddits and then scrape all the Imgur links directly 
 from them subreddits.
 
-<span style="color:#3366BB">name_type</span>: If changed to one of three options (random, standard, name), will 
+[name_type](https://github.com/tehstun/Reddit-Imgur-scraping): If changed to one of three options (random, standard, name), will 
 affect the image name. (random: random number, standard: number counting system, 
 name: the downloaded image name).
 
 ### *Scraping_options*
 
-<span style="color:#3366BB">folder_names</span>: This will be the folder name of which the images will be pulled into, 
+[folder_names](https://github.com/tehstun/Reddit-Imgur-scraping): This will be the folder name of which the images will be pulled into, 
 you then will have to create a duplicate of that name below the folder_names. Giving that value all
 the subreddits you want to scrape. These values should be single space while separated by a single comma.
 Check the below example for a better understanding.
@@ -59,10 +59,4 @@ awesomeSubReddits = AskReddit, MuseumOfReddit, AccidentalComedy
 
 This is free software. It is licensed under the [MIT License](http://opensource.org/licenses/MIT). Feel free to use this in your own work. However, if you modify and/or redistribute it, please attribute me in some way, and distribute your work under this or a similar license. A shout-out or a beer would be appreciated.
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-<input type="hidden" name="cmd" value="_s-xclick" />
-<input type="hidden" name="hosted_button_id" value="MYR4398RVSV68" />
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate" />
-</form>
-
-
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MYR4398RVSV68)
