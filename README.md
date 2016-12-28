@@ -9,9 +9,10 @@ selected reddit subreddits and download them into your selected folder.
 
 1. Clone / Download the Github [Repository.](https://github.com/tehstun/Reddit-Imgur-scraping/archive/master.zip) 
 2. Extact the PyRedditImgurScraping into its own folder.
-3. Adjust the "*settings.ini*" file to meet your requirements.
-4. Run the command "*py index.py*" from within the root folder.
-5. Profit.
+3. requires the installation of "*feedparser*" found [here](https://pypi.python.org/pypi/feedparser) or "*pip install feedparser*".
+5. Adjust the "*settings.ini*" file to meet your requirements.
+6. Run the command "*py index.py*" from within the root folder.
+6. Profit.
 
 ## Settings.ini
 
