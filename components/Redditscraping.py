@@ -8,6 +8,7 @@ import feedparser
 
 ENTRIES_NAME = "entries"
 SUMMARY_NAME = "summary"
+TITLE_NAME = "title"
 
 class Redditscraping:
     """ Class built for ripping imgur images from a reddit feed (rss) """
@@ -20,6 +21,9 @@ class Redditscraping:
         self.i = 1
         self.image_count = 1
         self.max_random_numbers = self.limit * len(self.reddit_rooms) * 10
+
+        if self.name_type not in ['random', 'standard', 'name']:
+            self.name_type = "standard"
 
         if not path.exists(self.file_location):
             makedirs(self.file_location)
@@ -61,12 +65,14 @@ class Redditscraping:
             current_feed = self.gather_reddit_rss(sub)
             entries_len = len(current_feed[ENTRIES_NAME])
             index = 0
+            random_numbers = []
 
             for entry in current_feed[ENTRIES_NAME]:
                 index += 1
                 imgur_url = self.parse_imgur_links(entry[SUMMARY_NAME])
-                random_numbers = []
+                image_title = re.sub('[^A-Za-z0-9 ]+', '', str(entry[TITLE_NAME]))
 
+                #random, name and standard are options that are pulled and transfered from the settings.ini file (will affect the naming of the files)
                 if self.name_type == "random":
                     selected_number = randint(0, self.max_random_numbers)
 
@@ -76,8 +82,11 @@ class Redditscraping:
                     random_numbers.append(selected_number)
                     file_name = self.file_location + "%s.jpeg" % str(selected_number)
 
+                if self.name_type == "name":
+                    file_name = self.file_location + "%s.jpeg" % str(image_title)
+
                 if self.name_type == "standard":
-                    file_name = self.file_location + "#%s.jpeg" % str(self.image_count) # self.image_count was (re.sub(r'[^\w]', '', self.image_count)
+                    file_name = self.file_location + "#%s.jpeg" % str(self.image_count)
 
                 if imgur_url != '':
                     self.image_count += 1
