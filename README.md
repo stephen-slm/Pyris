@@ -17,23 +17,23 @@ selected reddit subreddits and download them into your selected folder.
 
 ### *Settings*
 
-[image_path](): The direct path to the location you want to save your images.
+<span style="color:#3366BB">image_path</span>: The direct path to the location you want to save your images.
 
-[image_limit](): The max amount of images to download per subreddit (max 100, default: 50).
+<span style="color:#3366BB">image_limit</span>: The max amount of images to download per subreddit (max 100, default: 50).
 
 ### *Options*
 
-[build_core](): If true, this will tell the tool to scrape the frontpage (reddit) 
+<span style="color:#3366BB">build_core</span>: If true, this will tell the tool to scrape the frontpage (reddit) 
 for the current most active subreddits and then scrape all the Imgur links directly 
 from them subreddits.
 
-[name_type](): If changed to one of three options (random, standard, name), will 
+<span style="color:#3366BB">name_type</span>: If changed to one of three options (random, standard, name), will 
 affect the image name. (random: random number, standard: number counting system, 
 name: the downloaded image name).
 
 ### *Scraping_options*
 
-[folder_names](): This will be the folder name of which the images will be pulled into, 
+<span style="color:#3366BB">folder_names</span>: This will be the folder name of which the images will be pulled into, 
 you then will have to create a duplicate of that name below the folder_names. Giving that value all
 the subreddits you want to scrape. These values should be single space while separated by a single comma.
 Check the below example for a better understanding.
