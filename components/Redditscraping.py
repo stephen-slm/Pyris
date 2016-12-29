@@ -31,6 +31,16 @@ class Redditscraping:
         if error_code == 1:
             print("Failed to download image: {}, error: {}".format(extra, str(error)))
 
+    def image_exists(self, image_path):
+        """ Returns true or false depending on if the file exists or not """
+
+        supported_formats = ["jpeg", "png", "gif", "apng", "tiff", "pdf", "xcf"]
+
+        for format_type in supported_formats:
+            if path.exists("{file_path}.{type}".format(file_path=image_path, type=format_type)):
+                return True
+        return False
+
     def gather_reddit_rss(self, room):
         """ will a room name and limit, while then gathering the rss food upto that limit """
 
@@ -60,18 +70,19 @@ class Redditscraping:
     def download_image(self, url, room, name):
         """ This will take in the url, room and name, downloading the image from the url and print """
         print("Downloading image room: r/{}, {}/{}".format(room, str(self.i), str(self.image_count)))
-        try:
-            urllib.request.urlretrieve(url, name)
-            file_type = img_type(name)
+        if not self.image_exists(name):
+            try:
+                urllib.request.urlretrieve(url, name)
+                file_type = img_type(name)
 
-            if str(file_type).lower() != "none":
-                rename(name, "{file_name}.{file_format}".format(file_name=name, file_format=file_type))
-            else:
-                rename(name, "{file_name}.{file_format}".format(file_name=name, file_format="jpeg"))
+                if str(file_type).lower() != "none":
+                    rename(name, "{file_name}.{file_format}".format(file_name=name, file_format=file_type))
+                else:
+                    rename(name, "{file_name}.{file_format}".format(file_name=name, file_format="jpeg"))
 
-            self.i += 1
-        except (urllib.request.HTTPError, Exception) as err:
-            self.handle_errors(1, err, url)
+                self.i += 1
+            except (urllib.request.HTTPError, Exception) as err:
+                self.handle_errors(1, err, url)
 
     def gather_images(self):
         """ goes through the provided array of rooms (sub reddits) and begin parsing and downloading any imgur links """
