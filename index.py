@@ -50,4 +50,4 @@ for name in FOLDER_NAMES:
             print("folder_name: ''{}'' did not have any provided subreddits - code: 01".format(name))
 
 
-# Good idea plain and simple. Would be cool to have some sorting options like "best","Hot", etc. also the time frame option "today", "week", etc.
+# I would suggest using the aiohttp library for downloading the images. It is asynchronous so it can download multiple files at the same time.

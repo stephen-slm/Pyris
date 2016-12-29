@@ -2,7 +2,8 @@
 
 import re
 import urllib.request
-from os import path, makedirs
+from imghdr import what as img_type
+from os import path, makedirs, rename
 from random import randint
 from feedparser import parse as feedparser
 
@@ -61,6 +62,7 @@ class Redditscraping:
         print("Downloading image room: r/{}, {}/{}".format(room, str(self.i), str(self.image_count)))
         try:
             urllib.request.urlretrieve(url, name)
+            rename(name, "{}.{}".format(name, img_type(name)))
             self.i += 1
         except (urllib.request.HTTPError, Exception) as err:
             self.handle_errors(1, err, url)
@@ -85,13 +87,13 @@ class Redditscraping:
                         selected_number = randint(0, self.client.max_random_numbers)
 
                     random_numbers.append(selected_number)
-                    file_name = "{}{}.jpeg".format(self.client.location, str(selected_number))
+                    file_name = "{}{}".format(self.client.location, str(selected_number))
 
                 if self.client.type == "name":
-                    file_name = "{}{}.jpeg".format(self.client.location, str(image_title))
+                    file_name = "{}{}".format(self.client.location, str(image_title))
 
                 if self.client.type == "standard":
-                    file_name = "{}#{}.jpeg".format(self.client.location, str(self.image_count))
+                    file_name = "{}#{}".format(self.client.location, str(self.image_count))
 
                 if imgur_url != '':
                     self.image_count += 1
