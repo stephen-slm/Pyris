@@ -51,9 +51,8 @@ class Redditscraping:
             return ''
 
     def download_image(self, url, room, name):
-        """ This will take in the url, room and name, downloading the image from the url while also printing this to the command line, stating the room and name """
-
-        print("Downloading image room: r/%s, %s/%s" % (room, str(self.i), str(self.image_count)))
+        """ This will take in the url, room and name, downloading the image from the url and print """
+        print("Downloading image room: r/{}, {}/{}".format(room, str(self.i), str(self.image_count)))
         try:
             urllib.request.urlretrieve(url, name)
             self.i += 1
@@ -66,11 +65,9 @@ class Redditscraping:
         for sub in self.client.rooms:
             current_feed = self.gather_reddit_rss(sub)
             entries_len = len(current_feed[ENTRIES_NAME])
-            index = 0
             random_numbers = []
 
-            for entry in current_feed[ENTRIES_NAME]:
-                index += 1
+            for index, entry in enumerate(current_feed[ENTRIES_NAME]):
                 imgur_url = self.parse_imgur_links(entry[SUMMARY_NAME])
                 image_title = re.sub('[^A-Za-z0-9 ]+', '', str(entry[TITLE_NAME]))
 
