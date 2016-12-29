@@ -28,12 +28,18 @@ class Redditscraping:
         """ handles errors that occure while scraping Reddit """
 
         if error_code == 1:
-            print("Failed to download image: %s, error: %s" % (extra, str(error)))
+            print("Failed to download image: {}, error: {}".format(extra, str(error)))
 
     def gather_reddit_rss(self, room):
         """ will a room name and limit, while then gathering the rss food upto that limit """
 
-        reddit_url = "https://www.reddit.com/r/" + room + "/.rss?limit=" + str(self.client.limit) + "&after=0"
+        page_types = ["hot", "new", "rising", "controversial", "top"]
+
+        if self.client.page_type is not "hot" and self.client.page_type in page_types:
+            reddit_url = "https://www.reddit.com/r/{room}/{page_type}/.rss?limit={limit}&after=0".format(room=room, page_type=self.client.page_type, limit=str(self.client.limit))
+        else:
+            reddit_url = "https://www.reddit.com/r/{room}/.rss?limit={limit}&after=0".format(room=room, limit=str(self.client.limit))
+
         feed = feedparser(reddit_url)
         return feed
 
@@ -42,11 +48,11 @@ class Redditscraping:
 
         if re.search("(?P<url>https?://imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary):
             imgururl = re.search("(?P<url>https?://imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary)
-            imgururl = "http://i." + imgururl.group(0)[7:] + ".jpeg"
+            imgururl = "http://i.{}.jpeg".format(imgururl.group(0)[7:])
             return imgururl
         elif re.search("(?P<url>https?://i.imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary):
             imgururl = re.search("(?P<url>https?://i.imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary)
-            return imgururl.group(0) + ".jpeg"
+            return "{}.jpeg".format(imgururl.group(0))
         else:
             return ''
 
@@ -79,18 +85,18 @@ class Redditscraping:
                         selected_number = randint(0, self.client.max_random_numbers)
 
                     random_numbers.append(selected_number)
-                    file_name = self.client.location + "%s.jpeg" % str(selected_number)
+                    file_name = "{}{}.jpeg".format(self.client.location, str(selected_number))
 
                 if self.client.type == "name":
-                    file_name = self.client.location + "%s.jpeg" % str(image_title)
+                    file_name = "{}{}.jpeg".format(self.client.location, str(image_title))
 
                 if self.client.type == "standard":
-                    file_name = self.client.location + "#%s.jpeg" % str(self.image_count)
+                    file_name = "{}#{}.jpeg".format(self.client.location, str(self.image_count))
 
                 if imgur_url != '':
                     self.image_count += 1
                     self.download_image(imgur_url, sub, file_name)
                 if index >= entries_len:
-                    print("Downloading Complete in subreddit: %s" % sub)
+                    print("Downloading Complete in subreddit: {}".format(sub))
 
         return True

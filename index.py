@@ -24,6 +24,7 @@ IMAGE_LIMIT = CONFIG.getint('settings', 'image_limit')
 # options
 BUILD_CORE = CONFIG.getboolean("options", "build_core")
 NAME_TYPE = CONFIG.get("options", "name_type")
+PAGE_TYPE = CONFIG.get("options", "page_type")
 
 # scraping_options
 FOLDER_NAMES = str(CONFIG.get("scraping_options", "folder_names")).replace(" ", "").split(",")
@@ -35,15 +36,18 @@ if not path.exists(IMAGE_PATH):
 # accessing the reddit class and gathering the front page sub names
 if BUILD_CORE:
     REDDIT = Reddit()
-    CORE = Redditscraping(RedditClient(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAME_TYPE))
+    CORE = Redditscraping(RedditClient(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAME_TYPE, PAGE_TYPE))
     CORE.gather_images()
 
 # scraping
 for name in FOLDER_NAMES:
     try:
         selected_subreddits = str(CONFIG.get("scraping_options", name)).replace(" ", "").split(",")
-        scraping = Redditscraping(RedditClient(selected_subreddits, (IMAGE_PATH + "/%s/" % name), IMAGE_LIMIT, NAME_TYPE))
+        scraping = Redditscraping(RedditClient(selected_subreddits, (IMAGE_PATH + "/%s/" % name), IMAGE_LIMIT, NAME_TYPE, PAGE_TYPE))
         scraping.gather_images()
     except Exception as error:
         if type(error).__name__ == "NoOptionError":
-            print("folder_name: ''%s'' did not have any provided subreddits - code: 01" % name)
+            print("folder_name: ''{}'' did not have any provided subreddits - code: 01".format(name))
+
+
+# Good idea plain and simple. Would be cool to have some sorting options like "best","Hot", etc. also the time frame option "today", "week", etc.

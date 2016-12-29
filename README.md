@@ -32,6 +32,9 @@ from them subreddits.
 affect the image name. (random: random number, standard: number counting system, 
 name: the downloaded image name).
 
+[page_type](https://github.com/tehstun/Reddit-Imgur-scraping): You can change this to adjust on what kind of images you get from 
+Reddits filtering options (*hot, new, rising, controversial, top*), **top** is the default by reddit while also the default in the tool.
+
 ### *Scraping_options*
 
 [folder_names](https://github.com/tehstun/Reddit-Imgur-scraping): This will be the folder name of which the images will be pulled into, 
@@ -48,6 +51,7 @@ image_limit = 50
 [options]
 build_core = false
 name_type = standard
+page_type = top
 
 [scraping_options]
 folder_names = cute, awesomeSubReddits
