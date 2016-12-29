@@ -62,7 +62,7 @@ class Redditscraping:
         print("Downloading image room: r/{}, {}/{}".format(room, str(self.i), str(self.image_count)))
         try:
             urllib.request.urlretrieve(url, name)
-            rename(name, "{}.{}".format(name, img_type(name)))
+            rename(name, "{file_name}.{file_format}".format(file_name=name, file_format=img_type(name)))
             self.i += 1
         except (urllib.request.HTTPError, Exception) as err:
             self.handle_errors(1, err, url)

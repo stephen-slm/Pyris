@@ -30,10 +30,10 @@ from them subreddits.
 
 [name_type](https://github.com/tehstun/Reddit-Imgur-scraping): If changed to one of three options (random, standard, name), will 
 affect the image name. (random: random number, standard: number counting system, 
-name: the downloaded image name).
+name: the downloaded image name). **name** is the default in this tool
 
 [page_type](https://github.com/tehstun/Reddit-Imgur-scraping): You can change this to adjust on what kind of images you get from 
-Reddits filtering options (*hot, new, rising, controversial, top*), **top** is the default by reddit while also the default in the tool.
+Reddits filtering options (*hot, new, rising, controversial, top*), **hot** is the default by reddit while also the default in the tool.
 
 ### *Scraping_options*
 
@@ -50,8 +50,8 @@ image_limit = 50
 
 [options]
 build_core = false
-name_type = standard
-page_type = top
+name_type = name
+page_type = hot
 
 [scraping_options]
 folder_names = cute, awesomeSubReddits
