@@ -64,7 +64,7 @@ class Redditscraping:
             urllib.request.urlretrieve(url, name)
             file_type = img_type(name)
 
-            if not file_type.lower() == "none":
+            if str(file_type).lower() != "none":
                 rename(name, "{file_name}.{file_format}".format(file_name=name, file_format=file_type))
             else:
                 rename(name, "{file_name}.{file_format}".format(file_name=name, file_format="jpeg"))
