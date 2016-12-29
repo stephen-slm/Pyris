@@ -1,15 +1,15 @@
 # pylint: disable=C0111, W1401, C0301
 
-#default imports]
+# default imports]
 from os import path, makedirs
 from configparser import ConfigParser
 
-#custom imports
+# custom imports
 from components.Reddit import Reddit
 from components.RedditClient import RedditClient
 from components.Redditscraping import Redditscraping
 
-#Importing settings
+# Importing settings
 CONFIG = ConfigParser()
 
 # parse existing file
@@ -17,18 +17,18 @@ CONFIG.read('./settings.ini')
 
 # read values from a section
 
-#settings
+# settings
 IMAGE_PATH = CONFIG.get('settings', 'images_path')
 IMAGE_LIMIT = CONFIG.getint('settings', 'image_limit')
 
-#options
+# options
 BUILD_CORE = CONFIG.getboolean("options", "build_core")
 NAME_TYPE = CONFIG.get("options", "name_type")
 
-#scraping_options
+# scraping_options
 FOLDER_NAMES = str(CONFIG.get("scraping_options", "folder_names")).replace(" ", "").split(",")
 
-#check if IMAGE_PATH end folder exists (otherwise create it)
+# check if IMAGE_PATH end folder exists (otherwise create it)
 if not path.exists(IMAGE_PATH):
     makedirs(IMAGE_PATH)
 
@@ -38,7 +38,7 @@ if BUILD_CORE:
     CORE = Redditscraping(RedditClient(REDDIT.frontpage, (IMAGE_PATH + "/core/"), IMAGE_LIMIT, NAME_TYPE))
     CORE.gather_images()
 
-#scraping
+# scraping
 for name in FOLDER_NAMES:
     try:
         selected_subreddits = str(CONFIG.get("scraping_options", name)).replace(" ", "").split(",")
