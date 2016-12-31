@@ -29,7 +29,7 @@ class Redditscraping:
         """ handles errors that occure while scraping Reddit """
 
         if error_code == 1:
-            print("Failed to download image: {}, error: {}".format(extra, str(error)))
+            print("Failed to download image: {image}, error: {error}".format(image=extra, error=str(error)))
 
     def image_exists(self, image_path):
         """ Returns true or false depending on if the file exists or not """
@@ -69,8 +69,8 @@ class Redditscraping:
 
     def download_image(self, url, room, name):
         """ This will take in the url, room and name, downloading the image from the url and print """
-        print("Downloading image room: r/{}, {}/{}".format(room, str(self.i), str(self.image_count)))
         if not self.image_exists(name):
+            print("Downloading image room:  r/{subreddit}, {index}/{image_count}".format(subreddit=room, index=str(self.i), image_count=str(self.image_count)))
             try:
                 urllib.request.urlretrieve(url, name)
                 file_type = img_type(name)
@@ -83,6 +83,7 @@ class Redditscraping:
                 self.i += 1
             except (urllib.request.HTTPError, Exception) as err:
                 self.handle_errors(1, err, url)
+        print("Not downloading image room: r/{subreddit}, {index}/{image_count} - It already exists".format(subreddit=room, index=str(self.i), image_count=str(self.image_count)))
 
     def gather_images(self):
         """ goes through the provided array of rooms (sub reddits) and begin parsing and downloading any imgur links """
@@ -104,13 +105,13 @@ class Redditscraping:
                         selected_number = randint(0, self.client.max_random_numbers)
 
                     random_numbers.append(selected_number)
-                    file_name = "{}{}".format(self.client.location, str(selected_number))
+                    file_name = "{location}{name}".format(location=self.client.location, name=str(selected_number))
 
                 if self.client.type == "name":
-                    file_name = "{}{}".format(self.client.location, str(image_title))
+                    file_name = "{location}{name}".format(location=self.client.location, name=str(image_title))
 
                 if self.client.type == "standard":
-                    file_name = "{}#{}".format(self.client.location, str(self.image_count))
+                    file_name = "{location}#{name}".format(location=self.client.location, name=str(self.image_count))
 
                 if imgur_url != '':
                     self.image_count += 1
