@@ -83,7 +83,8 @@ class Redditscraping:
                 self.i += 1
             except (urllib.request.HTTPError, Exception) as err:
                 self.handle_errors(1, err, url)
-        print("Not downloading image room: r/{subreddit}, {index}/{image_count} - It already exists".format(subreddit=room, index=str(self.i), image_count=str(self.image_count)))
+        else:
+            print("Not downloading image room: r/{subreddit}, {index}/{image_count} - It already exists".format(subreddit=room, index=str(self.i), image_count=str(self.image_count)))
 
     def gather_images(self):
         """ goes through the provided array of rooms (sub reddits) and begin parsing and downloading any imgur links """
