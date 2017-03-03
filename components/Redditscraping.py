@@ -106,13 +106,13 @@ class Redditscraping:
                         selected_number = randint(0, self.client.max_random_numbers)
 
                     random_numbers.append(selected_number)
-                    file_name = "{location}{name}".format(location=self.client.location, name=str(selected_number))
+                    file_name = "{location}[{room}] {name}".format(location=self.client.location, name=str(selected_number), room=sub)
 
                 if self.client.type == "name":
-                    file_name = "{location}{name}".format(location=self.client.location, name=str(image_title))
+                    file_name = "{location}[{room}] {name}".format(location=self.client.location, name=str(image_title), room=sub)
 
                 if self.client.type == "standard":
-                    file_name = "{location}#{name}".format(location=self.client.location, name=str(self.image_count))
+                    file_name = "{location}[{room}] #{name}".format(location=self.client.location, name=str(self.image_count), room=sub)
 
                 if imgur_url != '':
                     self.image_count += 1
