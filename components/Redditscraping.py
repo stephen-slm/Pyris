@@ -57,8 +57,8 @@ class Redditscraping:
     def parse_imgur_links(self, entry_summary):
         """ This will take in the reddit entry summary, parsing out the imgur links out of the summary text """
 
-        if re.search("(?P<url>https?://imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary):
-            imgururl = re.search("(?P<url>https?://imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary)
+        if re.search("(?P<url>https?://imgur.com/([A-z0-9/-]+))(\?[[^/]+)?", entry_summary):
+            imgururl = re.search("(?P<url>https?://imgur.com/([A-z0-9/-]+))(\?[[^/]+)?", entry_summary)
             imgururl = "http://i.{}.jpeg".format(imgururl.group(0)[7:])
             return imgururl
         elif re.search("(?P<url>https?://i.imgur.com/([A-z0-9\-]+))(\?[[^/]+)?", entry_summary):
@@ -97,6 +97,10 @@ class Redditscraping:
             for index, entry in enumerate(current_feed[ENTRIES_NAME]):
                 imgur_url = self.parse_imgur_links(entry[SUMMARY_NAME])
                 image_title = re.sub('[^A-Za-z0-9 ]+', '', str(entry[TITLE_NAME]))
+
+                if"gallery" in imgur_url:
+                    print("Galleries are not handled due to requiring Oauth 2.0: {}".format(imgur_url))
+                    imgur_url = ''
 
                 #random, name and standard are options that are pulled and transfered from the settings.ini file (will affect the naming of the files)
                 if self.client.type == "random":
