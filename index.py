@@ -48,6 +48,3 @@ for name in FOLDER_NAMES:
     except Exception as error:
         if type(error).__name__ == "NoOptionError":
             print("folder_name: ''{}'' did not have any provided subreddits - code: 01".format(name))
-
-
-# I would suggest using the aiohttp library for downloading the images. It is asynchronous so it can download multiple files at the same time.
