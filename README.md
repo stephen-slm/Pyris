@@ -1,4 +1,4 @@
-# PyRedditImgurScraping
+# PYRIS
 
 
 PyRedditImgurScraping is a Python ([3](https://www.python.org/downloads/)) tool to scrape [Reddit](https://www.reddit.com/) subreddits.
