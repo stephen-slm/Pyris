@@ -58,8 +58,3 @@ folder_names = cute, awesomeSubReddits
 cute = aww, animalssmiling, catpics, cats
 awesomeSubReddits = AskReddit, MuseumOfReddit, AccidentalComedy
 ```
-## License
-
-&copy; 2018 Stephen Lineker-Miller <slinekermiller@gmail.com>
-
-This is free software. It is licensed under the [MIT License](http://opensource.org/licenses/MIT). Feel free to use this in your own work. However, if you modify and/or redistribute it, please attribute me in some way, and distribute your work under this or a similar license. A shout-out or a beer would be appreciated.
